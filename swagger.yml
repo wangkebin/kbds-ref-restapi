@@ -1,0 +1,99 @@
+info:
+    title: kbds-ref-restapi
+    version: 0.1.0
+paths:
+  /v1/healthz:
+    get:
+      operationId: health
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Successfully checked health status 
+          schema:
+            type: string
+        default:
+          description: generic error response 
+          schema:
+            $ref: '#/definitions/error'
+  /v1/files:
+    post:
+      operationId: files     
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: files
+          schema:
+            $ref: '#/definitions/files'
+          required: true
+          description: list of file info to post
+      responses:
+        200:
+          description: Successfully posted the list of fileinfo resources
+          schema:
+            type: integer
+        default:
+          description: generic error response
+          schema:
+            $ref: '#/definitions/error'
+  /v1/search:
+    get:
+      operationId: search
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          schema:
+            properties:
+              search:
+                type: string
+          required: true
+          name: search
+          description: part of file name/path you are searching for
+      responses:
+        200:
+          description: Successfully searched the file list based on a search term
+          schema:
+            $ref: '#/definitions/files'
+        default:
+          description: generic error response
+          schema:
+            $ref: '#/definitions/error'
+definitions:
+  error:
+    type: object
+    required:
+      - message
+    properties:
+      code:
+        type: integer
+        format: int64
+      message:
+        type: string
+  file:
+    type: object
+    required:
+      - name
+    properties:
+      id:
+        type: integer
+      loc:
+        type: string
+      name:
+        type: string
+      ext:
+        type: string
+      size:
+        type: integer
+  files:
+    type: array
+    items:
+      $ref: '#/definitions/file'
+
+
+swagger: "2.0"
