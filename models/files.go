@@ -1,7 +1,7 @@
 package models
 
 import (
-	resource "github.com/kebinwang/kbds-ref-restapi/gen/models"
+	resource "github.com/wangkebin/kbds-ref-restapi/gen/models"
 )
 
 type Files []File
