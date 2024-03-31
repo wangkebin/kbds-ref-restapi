@@ -83,7 +83,7 @@ func init() {
       }
     },
     "/v1/search": {
-      "get": {
+      "post": {
         "consumes": [
           "application/json"
         ],
@@ -236,7 +236,7 @@ func init() {
       }
     },
     "/v1/search": {
-      "get": {
+      "post": {
         "consumes": [
           "application/json"
         ],

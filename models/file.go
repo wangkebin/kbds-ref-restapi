@@ -3,7 +3,7 @@ package models
 import (
 	"strings"
 
-	resource "github.com/wangkebin/kbds-ref-restapi/gen/models"
+	resource "kbds-ref-restapi/gen/models"
 )
 
 type File struct {
@@ -17,8 +17,8 @@ type File struct {
 func (f *File) FromResource(src *resource.File) {
 	f.Id = src.ID
 	f.Name = strings.TrimSpace(*src.Name)
-	f.Loc = strings.TrimSpace(*src.Loc)
-	f.Ext = strings.TrimSpace(*src.Ext)
+	f.Loc = strings.TrimSpace(src.Loc)
+	f.Ext = strings.TrimSpace(src.Ext)
 	f.Size = src.Size
 
 }
@@ -27,9 +27,9 @@ func (f *File) ToResource() *resource.File {
 	var src = new(resource.File)
 	src.ID = f.Id
 	src.Name = &f.Name
-	src.Loc = &f.Loc
-	src.Ext = &f.Ext
-	src.size = f.Size
+	src.Loc = f.Loc
+	src.Ext = f.Ext
+	src.Size = f.Size
 
 	return src
 }

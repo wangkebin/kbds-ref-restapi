@@ -275,10 +275,10 @@ func (o *KbdsRefRestapiAPI) initHandlerCache() {
 		o.handlers["GET"] = make(map[string]http.Handler)
 	}
 	o.handlers["GET"]["/v1/healthz"] = NewHealth(o.context, o.HealthHandler)
-	if o.handlers["GET"] == nil {
-		o.handlers["GET"] = make(map[string]http.Handler)
+	if o.handlers["POST"] == nil {
+		o.handlers["POST"] = make(map[string]http.Handler)
 	}
-	o.handlers["GET"]["/v1/search"] = NewSearch(o.context, o.SearchHandler)
+	o.handlers["POST"]["/v1/search"] = NewSearch(o.context, o.SearchHandler)
 }
 
 // Serve creates a http handler to serve the API over HTTP

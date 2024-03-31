@@ -33,7 +33,7 @@ func NewSearch(ctx *middleware.Context, handler SearchHandler) *Search {
 }
 
 /*
-	Search swagger:route GET /v1/search search
+	Search swagger:route POST /v1/search search
 
 Search search API
 */

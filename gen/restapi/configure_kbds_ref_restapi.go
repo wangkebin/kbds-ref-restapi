@@ -3,6 +3,7 @@
 package restapi
 
 import (
+	"context"
 	"crypto/tls"
 	"net/http"
 
@@ -10,7 +11,14 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/runtime/middleware"
 
+	viper "github.com/spf13/viper"
+	"go.uber.org/zap"
+
+	"kbds-ref-restapi/controller"
 	"kbds-ref-restapi/gen/restapi/operations"
+
+	genmodels "kbds-ref-restapi/gen/models"
+	models "kbds-ref-restapi/models"
 )
 
 //go:generate swagger generate server --target ../../gen --name KbdsRefRestapi --spec ../../swagger.yml --principal interface{}
@@ -37,8 +45,24 @@ func configureAPI(api *operations.KbdsRefRestapiAPI) http.Handler {
 
 	api.JSONProducer = runtime.JSONProducer()
 
+	l := zap.Must(zap.NewProduction())
+	defer l.Sync()
+	api.Logger = l.Sugar().Infof
+
+	viper.SetConfigFile("./config/config.yaml")
+
+	err := viper.ReadInConfig()
+	if err != nil {
+		l.Sugar().Errorf("Can't find the file .env : ", err)
+	}
+
+	err = viper.Unmarshal(&models.GlobalConfig)
+	if err != nil {
+		l.Sugar().Errorf("Environment can't be loaded: ", err)
+	}
+
 	api.FilesHandler = operations.FilesHandlerFunc(func(params operations.FilesParams) middleware.Responder {
-		
+
 		return middleware.NotImplemented("operation operations.Files has not yet been implemented")
 	})
 
@@ -47,7 +71,12 @@ func configureAPI(api *operations.KbdsRefRestapiAPI) http.Handler {
 	})
 
 	api.SearchHandler = operations.SearchHandlerFunc(func(params operations.SearchParams) middleware.Responder {
-		return middleware.NotImplemented("operation operations.Search has not yet been implemented")
+		files, err := controller.GetFiles(context.Background(), params.Search.Search, l)
+		if err != nil {
+			msg := err.Error()
+			return operations.NewFilesDefault(500).WithPayload(&genmodels.Error{Message: &msg})
+		}
+		return operations.NewSearchOK().WithPayload(*files.ToResource())
 	})
 
 	api.PreServerShutdown = func() {}

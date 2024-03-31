@@ -40,7 +40,7 @@ paths:
           schema:
             $ref: '#/definitions/error'
   /v1/search:
-    get:
+    post:
       operationId: search
       consumes:
         - application/json

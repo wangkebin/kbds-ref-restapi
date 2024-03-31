@@ -3,10 +3,12 @@ package dal
 import (
 	"sync"
 
-	log "github.com/uber-go/zap"
+	log "go.uber.org/zap"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
+
+	"kbds-ref-restapi/models"
 )
 
 var (
@@ -20,7 +22,7 @@ func Connect(l *log.Logger) (*gorm.DB, error) {
 
 	once.Do(func() {
 		db, dbErr = gorm.Open(
-			mysql.Open((&models.GlobalConfig).ConnString),
+			mysql.Open(models.GlobalConfig.ConnStr),
 			&gorm.Config{Logger: *LogConfig(l, logger.Info)},
 		)
 		if dbErr != nil {
