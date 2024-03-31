@@ -1,0 +1,1 @@
+swagger generate server --target gen --name KbdsRefRestapi --spec swagger.yml --principal interface{}
