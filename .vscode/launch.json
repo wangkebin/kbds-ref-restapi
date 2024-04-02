@@ -15,7 +15,7 @@
             "env": {
                 "PORT":"8082",
                 "HOST":"0.0.0.0",
-                "CONNECTION_STRING":"kb:kb@tcp(amd:3306)/dirs?charset=utf8mb4&parseTime=True&loc=Local",
+                "CONNECTION_STRING":"kb:kb@tcp(amd:3306)/kb?charset=utf8mb4&parseTime=True&loc=Local",
             }
         }
     ]

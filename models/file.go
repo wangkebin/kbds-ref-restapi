@@ -35,5 +35,5 @@ func (f *File) ToResource() *resource.File {
 }
 
 func (f *File) TableName() string {
-	return "dirs"
+	return "file_info"
 }
