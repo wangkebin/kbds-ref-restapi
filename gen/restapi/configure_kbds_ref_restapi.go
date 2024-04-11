@@ -14,11 +14,11 @@ import (
 	viper "github.com/spf13/viper"
 	"go.uber.org/zap"
 
-	"kbds-ref-restapi/controller"
-	"kbds-ref-restapi/gen/restapi/operations"
+	"github.com/wangkebin/kbds-ref-restapi/controller"
+	"github.com/wangkebin/kbds-ref-restapi/gen/restapi/operations"
 
-	genmodels "kbds-ref-restapi/gen/models"
-	models "kbds-ref-restapi/models"
+	genmodels "github.com/wangkebin/kbds-ref-restapi/gen/models"
+	models "github.com/wangkebin/kbds-ref-restapi/models"
 )
 
 //go:generate swagger generate server --target ../../gen --name KbdsRefRestapi --spec ../../swagger.yml --principal interface{}

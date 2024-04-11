@@ -1,7 +1,7 @@
 package dal
 
 import (
-	"kbds-ref-restapi/models"
+	"github.com/wangkebin/kbds-ref-restapi/models"
 
 	log "go.uber.org/zap"
 

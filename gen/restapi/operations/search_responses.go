@@ -10,7 +10,7 @@ import (
 
 	"github.com/go-openapi/runtime"
 
-	"kbds-ref-restapi/gen/models"
+	"github.com/wangkebin/kbds-ref-restapi/gen/models"
 )
 
 // SearchOKCode is the HTTP code returned for type SearchOK

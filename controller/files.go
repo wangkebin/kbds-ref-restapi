@@ -3,9 +3,10 @@ package controller
 import (
 	"context"
 	"fmt"
-	"kbds-ref-restapi/dal"
-	"kbds-ref-restapi/models"
 	"time"
+
+	"github.com/wangkebin/kbds-ref-restapi/dal"
+	"github.com/wangkebin/kbds-ref-restapi/models"
 
 	log "go.uber.org/zap"
 )

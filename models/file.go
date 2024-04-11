@@ -3,7 +3,7 @@ package models
 import (
 	"strings"
 
-	resource "kbds-ref-restapi/gen/models"
+	resource "github.com/wangkebin/kbds-ref-restapi/gen/models"
 )
 
 type File struct {

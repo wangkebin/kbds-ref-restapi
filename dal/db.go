@@ -8,7 +8,7 @@ import (
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 
-	"kbds-ref-restapi/models"
+	"github.com/wangkebin/kbds-ref-restapi/models"
 )
 
 var (

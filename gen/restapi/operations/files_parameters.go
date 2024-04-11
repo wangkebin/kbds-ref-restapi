@@ -14,7 +14,7 @@ import (
 	"github.com/go-openapi/runtime/middleware"
 	"github.com/go-openapi/validate"
 
-	"kbds-ref-restapi/gen/models"
+	"github.com/wangkebin/kbds-ref-restapi/gen/models"
 )
 
 // NewFilesParams creates a new FilesParams object

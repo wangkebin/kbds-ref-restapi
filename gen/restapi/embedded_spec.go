@@ -20,7 +20,7 @@ func init() {
 	SwaggerJSON = json.RawMessage([]byte(`{
   "swagger": "2.0",
   "info": {
-    "title": "kbds-ref-restapi",
+    "title": "github.com/wangkebin/kbds-ref-restapi",
     "version": "0.1.0"
   },
   "paths": {
@@ -173,7 +173,7 @@ func init() {
 	FlatSwaggerJSON = json.RawMessage([]byte(`{
   "swagger": "2.0",
   "info": {
-    "title": "kbds-ref-restapi",
+    "title": "github.com/wangkebin/kbds-ref-restapi",
     "version": "0.1.0"
   },
   "paths": {

@@ -1,4 +1,4 @@
-module kbds-ref-restapi
+module github.com/wangkebin/kbds-ref-restapi
 
 go 1.21.8
 
