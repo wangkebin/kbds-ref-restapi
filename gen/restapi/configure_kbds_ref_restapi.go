@@ -10,6 +10,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/runtime/middleware"
+	"github.com/rs/cors"
 
 	viper "github.com/spf13/viper"
 	"go.uber.org/zap"
@@ -45,7 +46,7 @@ func configureAPI(api *operations.KbdsRefRestapiAPI) http.Handler {
 
 	api.JSONProducer = runtime.JSONProducer()
 
-	l := zap.Must(zap.NewProduction())
+	l := zap.Must(zap.NewDevelopment())
 	defer l.Sync()
 	api.Logger = l.Sugar().Infof
 
@@ -107,5 +108,16 @@ func setupMiddlewares(handler http.Handler) http.Handler {
 // The middleware configuration happens before anything, this middleware also applies to serving the swagger.json document.
 // So this is a good place to plug in a panic handling middleware, logging and metrics.
 func setupGlobalMiddleware(handler http.Handler) http.Handler {
-	return handler
+	handleCORS := cors.New(cors.Options{
+		AllowedOrigins: models.GlobalConfig.Cors,
+		AllowedMethods: []string{
+			http.MethodHead,
+			http.MethodGet,
+			http.MethodPost,
+			http.MethodPut,
+			http.MethodDelete,
+			http.MethodOptions,
+		},
+	}).Handler
+	return handleCORS(handler)
 }
