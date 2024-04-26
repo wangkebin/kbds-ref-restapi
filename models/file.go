@@ -26,7 +26,8 @@ func (f *File) FromResource(src *resource.File) {
 func (f *File) ToResource() *resource.File {
 	var src = new(resource.File)
 	src.ID = f.Id
-	src.Name = &f.Name
+	fname := f.Name
+	src.Name = &fname
 	src.Loc = f.Loc
 	src.Ext = f.Ext
 	src.Size = f.Size

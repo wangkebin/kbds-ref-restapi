@@ -11,7 +11,7 @@ import (
 
 func MatchFiles(s string, db *gorm.DB, l *log.Logger) (*models.Files, error) {
 	f := make(models.Files, 0)
-	res := db.Debug().Where("name like ?", "%"+s+"%").Find(&f)
+	res := db.Debug().Where("name like ? group by name,size having count(*) > 1", "%"+s+"%").Find(&f)
 	if res.Error != nil {
 		return nil, res.Error
 	}
