@@ -9,9 +9,18 @@ import (
 	"gorm.io/gorm/clause"
 )
 
-func MatchFiles(s string, db *gorm.DB, l *log.Logger) (*models.Files, error) {
+func SearchFilesByPartName(s string, db *gorm.DB, l *log.Logger) (*models.Files, error) {
 	f := make(models.Files, 0)
 	res := db.Debug().Where("name like ? group by name,size having count(*) > 1", "%"+s+"%").Find(&f)
+	if res.Error != nil {
+		return nil, res.Error
+	}
+	return &f, nil
+}
+
+func GetDupFilesByName(fi models.File, db *gorm.DB, l *log.Logger) (*models.Files, error) {
+	f := make(models.Files, 0)
+	res := db.Debug().Where("name = ? AND size = ?", fi.Name, fi.Size).Find(&f)
 	if res.Error != nil {
 		return nil, res.Error
 	}

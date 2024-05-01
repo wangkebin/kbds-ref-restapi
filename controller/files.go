@@ -20,7 +20,25 @@ func GetFiles(ctx context.Context, s string, l *log.Logger) (*models.Files, erro
 		return nil, err
 	}
 
-	res, err := dal.MatchFiles(s, db, l)
+	res, err := dal.SearchFilesByPartName(s, db, l)
+	if err != nil {
+		l.Sugar().Errorf(err.Error())
+		return nil, err
+	}
+	l.Info(fmt.Sprintf("GetFiles processing time: %v", time.Since(start)))
+	return res, nil
+}
+
+func GetDups(ctx context.Context, f models.File, l *log.Logger) (*models.Files, error) {
+	start := time.Now()
+
+	db, err := dal.Connect(l)
+	if err != nil {
+		l.Sugar().Errorf(err.Error())
+		return nil, err
+	}
+
+	res, err := dal.GetDupFilesByName(f, db, l)
 	if err != nil {
 		l.Sugar().Errorf(err.Error())
 		return nil, err

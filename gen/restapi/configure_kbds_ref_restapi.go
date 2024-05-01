@@ -80,6 +80,19 @@ func configureAPI(api *operations.KbdsRefRestapiAPI) http.Handler {
 		return operations.NewSearchOK().WithPayload(*files.ToResource())
 	})
 
+	api.DuplicatesHandler = operations.DuplicatesHandlerFunc(func(params operations.DuplicatesParams) middleware.Responder {
+		f := models.File{
+			Name: *params.Finfo.Name,
+			Size: params.Finfo.Size,
+		}
+		files, err := controller.GetDups(context.Background(), f, l)
+		if err != nil {
+			msg := err.Error()
+			return operations.NewFilesDefault(500).WithPayload(&genmodels.Error{Message: &msg})
+		}
+		return operations.NewSearchOK().WithPayload(*files.ToResource())
+	})
+
 	api.PreServerShutdown = func() {}
 
 	api.ServerShutdown = func() {}
