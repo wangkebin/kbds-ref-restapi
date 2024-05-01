@@ -28,7 +28,7 @@ func main() {
 	defer server.Shutdown()
 
 	parser := flags.NewParser(server, flags.Default)
-	parser.ShortDescription = "github.com/wangkebin/kbds-ref-restapi"
+	parser.ShortDescription = "kbds-ref-restapi"
 	parser.LongDescription = swaggerSpec.Spec().Info.Description
 	server.ConfigureFlags()
 	for _, optsGroup := range api.CommandLineOptionsGroups {

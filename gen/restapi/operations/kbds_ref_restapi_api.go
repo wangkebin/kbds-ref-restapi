@@ -42,6 +42,9 @@ func NewKbdsRefRestapiAPI(spec *loads.Document) *KbdsRefRestapiAPI {
 
 		JSONProducer: runtime.JSONProducer(),
 
+		DuplicatesHandler: DuplicatesHandlerFunc(func(params DuplicatesParams) middleware.Responder {
+			return middleware.NotImplemented("operation Duplicates has not yet been implemented")
+		}),
 		FilesHandler: FilesHandlerFunc(func(params FilesParams) middleware.Responder {
 			return middleware.NotImplemented("operation Files has not yet been implemented")
 		}),
@@ -87,6 +90,8 @@ type KbdsRefRestapiAPI struct {
 	//   - application/json
 	JSONProducer runtime.Producer
 
+	// DuplicatesHandler sets the operation handler for the duplicates operation
+	DuplicatesHandler DuplicatesHandler
 	// FilesHandler sets the operation handler for the files operation
 	FilesHandler FilesHandler
 	// HealthHandler sets the operation handler for the health operation
@@ -170,6 +175,9 @@ func (o *KbdsRefRestapiAPI) Validate() error {
 		unregistered = append(unregistered, "JSONProducer")
 	}
 
+	if o.DuplicatesHandler == nil {
+		unregistered = append(unregistered, "DuplicatesHandler")
+	}
 	if o.FilesHandler == nil {
 		unregistered = append(unregistered, "FilesHandler")
 	}
@@ -267,6 +275,10 @@ func (o *KbdsRefRestapiAPI) initHandlerCache() {
 		o.handlers = make(map[string]map[string]http.Handler)
 	}
 
+	if o.handlers["POST"] == nil {
+		o.handlers["POST"] = make(map[string]http.Handler)
+	}
+	o.handlers["POST"]["/v1/duplicates"] = NewDuplicates(o.context, o.DuplicatesHandler)
 	if o.handlers["POST"] == nil {
 		o.handlers["POST"] = make(map[string]http.Handler)
 	}

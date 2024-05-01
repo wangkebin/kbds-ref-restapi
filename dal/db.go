@@ -6,7 +6,6 @@ import (
 	log "go.uber.org/zap"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
-	"gorm.io/gorm/logger"
 
 	"github.com/wangkebin/kbds-ref-restapi/models"
 )
@@ -23,7 +22,7 @@ func Connect(l *log.Logger) (*gorm.DB, error) {
 	once.Do(func() {
 		db, dbErr = gorm.Open(
 			mysql.Open(models.GlobalConfig.ConnStr),
-			&gorm.Config{Logger: *LogConfig(l, logger.Info)},
+			//&gorm.Config{Logger: *LogConfig(l, logger.Info)},
 		)
 		if dbErr != nil {
 			return

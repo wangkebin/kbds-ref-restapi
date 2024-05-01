@@ -39,6 +39,29 @@ paths:
           description: generic error response
           schema:
             $ref: '#/definitions/error'
+  /v1/duplicates:
+    post:
+      operationId: duplicates     
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          schema: 
+            $ref: '#/definitions/file'
+          required: true
+          name: finfo
+          description: file info of interest
+      responses:
+        200:
+          description: Successfully posted the list of fileinfo resources
+          schema:
+            $ref: '#/definitions/files'
+        default:
+          description: generic error response
+          schema:
+            $ref: '#/definitions/error'
   /v1/search:
     post:
       operationId: search

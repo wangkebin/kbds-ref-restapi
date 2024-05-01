@@ -20,10 +20,46 @@ func init() {
 	SwaggerJSON = json.RawMessage([]byte(`{
   "swagger": "2.0",
   "info": {
-    "title": "github.com/wangkebin/kbds-ref-restapi",
+    "title": "kbds-ref-restapi",
     "version": "0.1.0"
   },
   "paths": {
+    "/v1/duplicates": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "operationId": "duplicates",
+        "parameters": [
+          {
+            "description": "file info of interest",
+            "name": "finfo",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/file"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully posted the list of fileinfo resources",
+            "schema": {
+              "$ref": "#/definitions/files"
+            }
+          },
+          "default": {
+            "description": "generic error response",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
     "/v1/files": {
       "post": {
         "consumes": [
@@ -173,10 +209,46 @@ func init() {
 	FlatSwaggerJSON = json.RawMessage([]byte(`{
   "swagger": "2.0",
   "info": {
-    "title": "github.com/wangkebin/kbds-ref-restapi",
+    "title": "kbds-ref-restapi",
     "version": "0.1.0"
   },
   "paths": {
+    "/v1/duplicates": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "operationId": "duplicates",
+        "parameters": [
+          {
+            "description": "file info of interest",
+            "name": "finfo",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/file"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully posted the list of fileinfo resources",
+            "schema": {
+              "$ref": "#/definitions/files"
+            }
+          },
+          "default": {
+            "description": "generic error response",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
     "/v1/files": {
       "post": {
         "consumes": [
