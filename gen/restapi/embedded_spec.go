@@ -181,6 +181,9 @@ func init() {
         "name"
       ],
       "properties": {
+        "count": {
+          "type": "integer"
+        },
         "ext": {
           "type": "string"
         },
@@ -370,6 +373,9 @@ func init() {
         "name"
       ],
       "properties": {
+        "count": {
+          "type": "integer"
+        },
         "ext": {
           "type": "string"
         },

@@ -113,6 +113,8 @@ definitions:
         type: string
       size:
         type: integer
+      count:
+        type: integer
   files:
     type: array
     items:

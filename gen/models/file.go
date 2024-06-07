@@ -19,6 +19,9 @@ import (
 // swagger:model file
 type File struct {
 
+	// count
+	Count int64 `json:"count,omitempty"`
+
 	// ext
 	Ext string `json:"ext,omitempty"`
 
