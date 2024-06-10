@@ -19,9 +19,13 @@ func SearchFilesByPartName(s string, db *gorm.DB, l *log.Logger) (*models.Files,
 	return &f, nil
 }
 
-func GetDupFilesByName(fi models.File, db *gorm.DB, l *log.Logger) (*models.Files, error) {
+func GetDupFilesByName(finfos models.Files, db *gorm.DB, l *log.Logger) (*models.Files, error) {
 	f := make(models.Files, 0)
-	res := db.Debug().Where("name = ? AND size = ?", fi.Name, fi.Size).Find(&f)
+	q := make([][]interface{}, 0)
+	for _,finfo := range finfos{
+		q = append(q, []interface{}{finfo.Name, finfo.Size})
+	}
+	res := db.Debug().Where("(name, size) in ?", q).Find(&f)
 	if res.Error != nil {
 		return nil, res.Error
 	}

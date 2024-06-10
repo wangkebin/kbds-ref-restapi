@@ -29,7 +29,7 @@ func GetFiles(ctx context.Context, s string, l *log.Logger) (*models.Files, erro
 	return res, nil
 }
 
-func GetDups(ctx context.Context, f models.File, l *log.Logger) (*models.Files, error) {
+func GetDups(ctx context.Context, finfos models.Files, l *log.Logger) (*models.Files, error) {
 	start := time.Now()
 
 	db, err := dal.Connect(l)
@@ -38,7 +38,7 @@ func GetDups(ctx context.Context, f models.File, l *log.Logger) (*models.Files, 
 		return nil, err
 	}
 
-	res, err := dal.GetDupFilesByName(f, db, l)
+	res, err := dal.GetDupFilesByName(finfos, db, l)
 	if err != nil {
 		l.Sugar().Errorf(err.Error())
 		return nil, err

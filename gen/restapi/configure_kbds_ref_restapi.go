@@ -81,11 +81,16 @@ func configureAPI(api *operations.KbdsRefRestapiAPI) http.Handler {
 	})
 
 	api.DuplicatesHandler = operations.DuplicatesHandlerFunc(func(params operations.DuplicatesParams) middleware.Responder {
-		f := models.File{
-			Name: *params.Finfo.Name,
-			Size: params.Finfo.Size,
+		var finfos models.Files
+		for _,finfo := range params.Finfos{
+			f := models.File{
+				Name: *finfo.Name,
+				Size: finfo.Size,
+			}
+			finfos = append(finfos, f)
 		}
-		files, err := controller.GetDups(context.Background(), f, l)
+		
+		files, err := controller.GetDups(context.Background(), finfos, l)
 		if err != nil {
 			msg := err.Error()
 			return operations.NewFilesDefault(500).WithPayload(&genmodels.Error{Message: &msg})

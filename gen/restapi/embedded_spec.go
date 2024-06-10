@@ -36,11 +36,11 @@ func init() {
         "parameters": [
           {
             "description": "file info of interest",
-            "name": "finfo",
+            "name": "finfos",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/file"
+              "$ref": "#/definitions/files"
             }
           }
         ],
@@ -228,11 +228,11 @@ func init() {
         "parameters": [
           {
             "description": "file info of interest",
-            "name": "finfo",
+            "name": "finfos",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/file"
+              "$ref": "#/definitions/files"
             }
           }
         ],

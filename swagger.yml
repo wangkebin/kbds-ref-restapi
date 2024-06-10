@@ -49,9 +49,9 @@ paths:
       parameters:
         - in: body
           schema: 
-            $ref: '#/definitions/file'
+            $ref: '#/definitions/files'
           required: true
-          name: finfo
+          name: finfos
           description: file info of interest
       responses:
         200:

@@ -38,7 +38,7 @@ type DuplicatesParams struct {
 	  Required: true
 	  In: body
 	*/
-	Finfo *models.File
+	Finfos models.Files
 }
 
 // BindRequest both binds and validates a request, it assumes that complex things implement a Validatable(strfmt.Registry) error interface
@@ -52,12 +52,12 @@ func (o *DuplicatesParams) BindRequest(r *http.Request, route *middleware.Matche
 
 	if runtime.HasBody(r) {
 		defer r.Body.Close()
-		var body models.File
+		var body models.Files
 		if err := route.Consumer.Consume(r.Body, &body); err != nil {
 			if err == io.EOF {
-				res = append(res, errors.Required("finfo", "body", ""))
+				res = append(res, errors.Required("finfos", "body", ""))
 			} else {
-				res = append(res, errors.NewParseError("finfo", "body", "", err))
+				res = append(res, errors.NewParseError("finfos", "body", "", err))
 			}
 		} else {
 			// validate body object
@@ -71,11 +71,11 @@ func (o *DuplicatesParams) BindRequest(r *http.Request, route *middleware.Matche
 			}
 
 			if len(res) == 0 {
-				o.Finfo = &body
+				o.Finfos = body
 			}
 		}
 	} else {
-		res = append(res, errors.Required("finfo", "body", ""))
+		res = append(res, errors.Required("finfos", "body", ""))
 	}
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
