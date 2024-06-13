@@ -72,7 +72,7 @@ func configureAPI(api *operations.KbdsRefRestapiAPI) http.Handler {
 	})
 
 	api.SearchHandler = operations.SearchHandlerFunc(func(params operations.SearchParams) middleware.Responder {
-		files, err := controller.GetFiles(context.Background(), params.Search.Search, l)
+		files, err := controller.GetFiles(context.Background(), params.Search.Search, int(params.Search.Page), int(params.Search.Pagesize), l)
 		if err != nil {
 			msg := err.Error()
 			return operations.NewFilesDefault(500).WithPayload(&genmodels.Error{Message: &msg})
@@ -82,14 +82,14 @@ func configureAPI(api *operations.KbdsRefRestapiAPI) http.Handler {
 
 	api.DuplicatesHandler = operations.DuplicatesHandlerFunc(func(params operations.DuplicatesParams) middleware.Responder {
 		var finfos models.Files
-		for _,finfo := range params.Finfos{
+		for _, finfo := range params.Finfos {
 			f := models.File{
 				Name: *finfo.Name,
 				Size: finfo.Size,
 			}
 			finfos = append(finfos, f)
 		}
-		
+
 		files, err := controller.GetDups(context.Background(), finfos, l)
 		if err != nil {
 			msg := err.Error()

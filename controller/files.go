@@ -11,7 +11,7 @@ import (
 	log "go.uber.org/zap"
 )
 
-func GetFiles(ctx context.Context, s string, l *log.Logger) (*models.Files, error) {
+func GetFiles(ctx context.Context, s string, page int, pagesize int, l *log.Logger) (*models.Files, error) {
 	start := time.Now()
 
 	db, err := dal.Connect(l)
@@ -20,7 +20,7 @@ func GetFiles(ctx context.Context, s string, l *log.Logger) (*models.Files, erro
 		return nil, err
 	}
 
-	res, err := dal.SearchFilesByPartName(s, db, l)
+	res, err := dal.SearchFilesByPartName(s,page, pagesize, db, l)
 	if err != nil {
 		l.Sugar().Errorf(err.Error())
 		return nil, err

@@ -63,6 +63,12 @@ func (o *Search) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 // swagger:model SearchBody
 type SearchBody struct {
 
+	// page
+	Page int64 `json:"page,omitempty"`
+
+	// pagesize
+	Pagesize int64 `json:"pagesize,omitempty"`
+
 	// search
 	Search string `json:"search,omitempty"`
 }

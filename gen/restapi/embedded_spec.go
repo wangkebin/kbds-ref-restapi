@@ -135,6 +135,12 @@ func init() {
             "required": true,
             "schema": {
               "properties": {
+                "page": {
+                  "type": "integer"
+                },
+                "pagesize": {
+                  "type": "integer"
+                },
                 "search": {
                   "type": "string"
                 }
@@ -327,6 +333,12 @@ func init() {
             "required": true,
             "schema": {
               "properties": {
+                "page": {
+                  "type": "integer"
+                },
+                "pagesize": {
+                  "type": "integer"
+                },
                 "search": {
                   "type": "string"
                 }

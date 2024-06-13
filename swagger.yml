@@ -75,6 +75,10 @@ paths:
             properties:
               search:
                 type: string
+              page:
+                type: integer
+              pagesize:
+                type: integer
           required: true
           name: search
           description: part of file name/path you are searching for
