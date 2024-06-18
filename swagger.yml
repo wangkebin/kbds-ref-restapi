@@ -62,6 +62,28 @@ paths:
           description: generic error response
           schema:
             $ref: '#/definitions/error'
+  /v1/delete/{fileid}:
+    post:
+      operationId: delete     
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: fileid
+          type: integer
+          format: int64
+          in: path
+          required: true
+          description: file to delete.
+      responses:
+        200:
+          description: Successfully deleted
+        default:
+          description: generic error response
+          schema:
+            $ref: '#/definitions/error'
+
   /v1/search:
     post:
       operationId: search
@@ -109,6 +131,7 @@ definitions:
     properties:
       id:
         type: integer
+        format: int64
       loc:
         type: string
       name:

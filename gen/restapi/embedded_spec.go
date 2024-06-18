@@ -24,6 +24,38 @@ func init() {
     "version": "0.1.0"
   },
   "paths": {
+    "/v1/delete/{fileid}": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "operationId": "delete",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int64",
+            "description": "file to delete.",
+            "name": "fileid",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully deleted"
+          },
+          "default": {
+            "description": "generic error response",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
     "/v1/duplicates": {
       "post": {
         "consumes": [
@@ -194,7 +226,8 @@ func init() {
           "type": "string"
         },
         "id": {
-          "type": "integer"
+          "type": "integer",
+          "format": "int64"
         },
         "loc": {
           "type": "string"
@@ -222,6 +255,38 @@ func init() {
     "version": "0.1.0"
   },
   "paths": {
+    "/v1/delete/{fileid}": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "operationId": "delete",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int64",
+            "description": "file to delete.",
+            "name": "fileid",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully deleted"
+          },
+          "default": {
+            "description": "generic error response",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
     "/v1/duplicates": {
       "post": {
         "consumes": [
@@ -392,7 +457,8 @@ func init() {
           "type": "string"
         },
         "id": {
-          "type": "integer"
+          "type": "integer",
+          "format": "int64"
         },
         "loc": {
           "type": "string"

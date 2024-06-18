@@ -42,6 +42,9 @@ func NewKbdsRefRestapiAPI(spec *loads.Document) *KbdsRefRestapiAPI {
 
 		JSONProducer: runtime.JSONProducer(),
 
+		DeleteHandler: DeleteHandlerFunc(func(params DeleteParams) middleware.Responder {
+			return middleware.NotImplemented("operation Delete has not yet been implemented")
+		}),
 		DuplicatesHandler: DuplicatesHandlerFunc(func(params DuplicatesParams) middleware.Responder {
 			return middleware.NotImplemented("operation Duplicates has not yet been implemented")
 		}),
@@ -90,6 +93,8 @@ type KbdsRefRestapiAPI struct {
 	//   - application/json
 	JSONProducer runtime.Producer
 
+	// DeleteHandler sets the operation handler for the delete operation
+	DeleteHandler DeleteHandler
 	// DuplicatesHandler sets the operation handler for the duplicates operation
 	DuplicatesHandler DuplicatesHandler
 	// FilesHandler sets the operation handler for the files operation
@@ -175,6 +180,9 @@ func (o *KbdsRefRestapiAPI) Validate() error {
 		unregistered = append(unregistered, "JSONProducer")
 	}
 
+	if o.DeleteHandler == nil {
+		unregistered = append(unregistered, "DeleteHandler")
+	}
 	if o.DuplicatesHandler == nil {
 		unregistered = append(unregistered, "DuplicatesHandler")
 	}
@@ -275,6 +283,10 @@ func (o *KbdsRefRestapiAPI) initHandlerCache() {
 		o.handlers = make(map[string]map[string]http.Handler)
 	}
 
+	if o.handlers["POST"] == nil {
+		o.handlers["POST"] = make(map[string]http.Handler)
+	}
+	o.handlers["POST"]["/v1/delete/{fileid}"] = NewDelete(o.context, o.DeleteHandler)
 	if o.handlers["POST"] == nil {
 		o.handlers["POST"] = make(map[string]http.Handler)
 	}
