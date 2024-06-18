@@ -22,6 +22,11 @@ DeleteOK Successfully deleted
 swagger:response deleteOK
 */
 type DeleteOK struct {
+
+	/*
+	  In: Body
+	*/
+	Payload string `json:"body,omitempty"`
 }
 
 // NewDeleteOK creates DeleteOK with default headers values
@@ -30,12 +35,25 @@ func NewDeleteOK() *DeleteOK {
 	return &DeleteOK{}
 }
 
+// WithPayload adds the payload to the delete o k response
+func (o *DeleteOK) WithPayload(payload string) *DeleteOK {
+	o.Payload = payload
+	return o
+}
+
+// SetPayload sets the payload to the delete o k response
+func (o *DeleteOK) SetPayload(payload string) {
+	o.Payload = payload
+}
+
 // WriteResponse to the client
 func (o *DeleteOK) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
 
-	rw.Header().Del(runtime.HeaderContentType) //Remove Content-Type on empty responses
-
 	rw.WriteHeader(200)
+	payload := o.Payload
+	if err := producer.Produce(rw, payload); err != nil {
+		panic(err) // let the recovery middleware deal with this
+	}
 }
 
 /*

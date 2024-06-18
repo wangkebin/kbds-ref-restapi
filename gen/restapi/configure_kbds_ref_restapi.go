@@ -81,12 +81,12 @@ func configureAPI(api *operations.KbdsRefRestapiAPI) http.Handler {
 	})
 
 	api.DeleteHandler = operations.DeleteHandlerFunc(func(params operations.DeleteParams) middleware.Responder {
-		err := controller.DeleteFile(context.Background(), params.Fileid, l)
+		note, err := controller.DeleteFile(context.Background(), params.Fileid, l)
 		if err != nil {
 			msg := err.Error()
 			return operations.NewDeleteDefault(500).WithPayload(&genmodels.Error{Message: &msg})
 		}
-		return operations.NewDeleteOK()
+		return operations.NewDeleteOK().WithPayload(note)
 	})
 
 	api.DuplicatesHandler = operations.DuplicatesHandlerFunc(func(params operations.DuplicatesParams) middleware.Responder {

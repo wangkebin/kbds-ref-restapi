@@ -79,6 +79,8 @@ paths:
       responses:
         200:
           description: Successfully deleted
+          schema:
+            type: string
         default:
           description: generic error response
           schema:

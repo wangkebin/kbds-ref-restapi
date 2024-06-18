@@ -48,10 +48,13 @@ func SaveFiles(f *models.Files, db *gorm.DB, l *log.Logger) error {
 	return nil
 }
 
-func DeleteFile(fileid int64, db *gorm.DB, l *log.Logger) error {
+func DeleteFile(fileid int64, db *gorm.DB, l *log.Logger) (string, error) {
 	res := db.Delete(&models.File{}, fileid)
-	if res.Error != nil {
-		return res.Error
+	if res.RowsAffected == 0 {
+		return "file does not exist", nil
 	}
-	return nil
+	if res.Error != nil {
+		return "file deletion failed", res.Error
+	}
+	return "", nil
 }

@@ -65,20 +65,20 @@ func PostFiles(ctx context.Context, f *models.Files, l *log.Logger) error {
 	return nil
 }
 
-func DeleteFile(ctx context.Context, fileid int64, l *log.Logger) error {
+func DeleteFile(ctx context.Context, fileid int64, l *log.Logger) (string, error) {
 	start := time.Now()
 
-	db, err := dal.Connect(l)
-	if err != nil {
-		l.Sugar().Errorf(err.Error())
-		return err
+	db, dberr := dal.Connect(l)
+	if dberr != nil {
+		l.Sugar().Errorf(dberr.Error())
+		return "", dberr
 	}
 
-	err = dal.DeleteFile(fileid, db, l)
+	note, err := dal.DeleteFile(fileid, db, l)
 	if err != nil {
 		l.Sugar().Errorf(err.Error())
-		return err
+		return "", err
 	}
 	l.Info(fmt.Sprintf("delete file processing time: %v", time.Since(start)))
-	return nil
+	return note, nil
 }

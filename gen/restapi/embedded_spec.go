@@ -45,7 +45,10 @@ func init() {
         ],
         "responses": {
           "200": {
-            "description": "Successfully deleted"
+            "description": "Successfully deleted",
+            "schema": {
+              "type": "string"
+            }
           },
           "default": {
             "description": "generic error response",
@@ -276,7 +279,10 @@ func init() {
         ],
         "responses": {
           "200": {
-            "description": "Successfully deleted"
+            "description": "Successfully deleted",
+            "schema": {
+              "type": "string"
+            }
           },
           "default": {
             "description": "generic error response",
