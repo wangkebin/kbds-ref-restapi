@@ -16,9 +16,9 @@ import (
 	"go.uber.org/zap"
 
 	"github.com/wangkebin/kbds-ref-restapi/controller"
-	"github.com/wangkebin/kbds-ref-restapi/gen/restapi/operations"
+	"github.com/wangkebin/kbds-ref-restapi/gen/server/restapi/operations"
 
-	genmodels "github.com/wangkebin/kbds-ref-restapi/gen/models"
+	genmodels "github.com/wangkebin/kbds-ref-restapi/gen/server/models"
 	models "github.com/wangkebin/kbds-ref-restapi/models"
 )
 

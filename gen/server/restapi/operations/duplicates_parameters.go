@@ -14,7 +14,7 @@ import (
 	"github.com/go-openapi/runtime/middleware"
 	"github.com/go-openapi/validate"
 
-	"github.com/wangkebin/kbds-ref-restapi/gen/models"
+	"github.com/wangkebin/kbds-ref-restapi/gen/server/models"
 )
 
 // NewDuplicatesParams creates a new DuplicatesParams object

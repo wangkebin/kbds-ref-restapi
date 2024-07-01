@@ -1,1 +1,1 @@
-swagger generate server --target gen --name KbdsRefRestapi --spec swagger.yml --principal interface{}
+mkdir -p gen/server && swagger generate server --target gen/server --name KbdsRefRestapi --spec swagger.yml --principal interface{}
