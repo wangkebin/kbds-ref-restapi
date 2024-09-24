@@ -129,6 +129,40 @@ func init() {
             }
           }
         }
+      },
+      "delete": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "operationId": "deletefiles",
+        "parameters": [
+          {
+            "description": "list of file info to delete",
+            "name": "files",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/files"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully deleted the list of fileinfo resources",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          "default": {
+            "description": "generic error response",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
       }
     },
     "/v1/healthz": {
@@ -352,6 +386,40 @@ func init() {
         "responses": {
           "200": {
             "description": "Successfully posted the list of fileinfo resources",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          "default": {
+            "description": "generic error response",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      },
+      "delete": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "operationId": "deletefiles",
+        "parameters": [
+          {
+            "description": "list of file info to delete",
+            "name": "files",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/files"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully deleted the list of fileinfo resources",
             "schema": {
               "type": "integer"
             }

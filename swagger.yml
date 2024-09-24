@@ -39,6 +39,28 @@ paths:
           description: generic error response
           schema:
             $ref: '#/definitions/error'
+    delete:
+      operationId: deletefiles     
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: files
+          schema:
+            $ref: '#/definitions/files'
+          required: true
+          description: list of file info to delete
+      responses:
+        200:
+          description: Successfully deleted the list of fileinfo resources
+          schema:
+            type: integer
+        default:
+          description: generic error response
+          schema:
+            $ref: '#/definitions/error'
   /v1/duplicates:
     post:
       operationId: duplicates     
