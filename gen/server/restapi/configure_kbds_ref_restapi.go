@@ -89,6 +89,22 @@ func configureAPI(api *operations.KbdsRefRestapiAPI) http.Handler {
 		return operations.NewDeleteOK().WithPayload(note)
 	})
 
+	api.DeletefilesHandler = operations.DeletefilesHandlerFunc(func(params operations.DeletefilesParams) middleware.Responder {
+		finfos := make([]models.File, 0)
+		for _, finfo := range params.Files {
+			f := models.File{
+				Name: *finfo.Name,
+				Size: finfo.Size,
+			}
+			finfos = append(finfos, f)
+		}
+		note, err := controller.DeleteFiles(context.Background(), &finfos, l)
+		if err != nil {
+			msg := err.Error()
+			return operations.NewDeleteDefault(500).WithPayload(&genmodels.Error{Message: &msg})
+		}
+		return operations.NewDeleteOK().WithPayload(note)
+	})
 	api.DuplicatesHandler = operations.DuplicatesHandlerFunc(func(params operations.DuplicatesParams) middleware.Responder {
 		var finfos models.Files
 		for _, finfo := range params.Finfos {

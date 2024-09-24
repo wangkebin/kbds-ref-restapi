@@ -2,9 +2,10 @@ package controller
 
 import (
 	"context"
+	"errors"
 	"fmt"
 
-	//"sync"
+	"sync"
 	"time"
 
 	"github.com/wangkebin/kbds-ref-restapi/dal"
@@ -109,6 +110,54 @@ func DeleteFile(ctx context.Context, fileid int64, l *log.Logger) (string, error
 	if err != nil {
 		l.Sugar().Errorf(err.Error())
 		return "failed to delete file", err
+	}
+
+	l.Info(fmt.Sprintf("delete file processing time: %v", time.Since(start)))
+	return note, nil
+}
+
+func DeleteFiles(ctx context.Context, files *[]models.File, l *log.Logger) (string, error) {
+	start := time.Now()
+	var wg sync.WaitGroup
+	db, dberr := dal.Connect(l)
+	if dberr != nil {
+		l.Sugar().Errorf(dberr.Error())
+		return "", dberr
+	}
+
+	//wg.Add(1)
+	ch := make(chan error)
+	errorlist := make([]error, 0)
+	wg.Add(len(*files))
+	for _, f := range *files {
+		go func(f models.File) {
+			defer wg.Done()
+			ops := fileop.FileOS{}
+			err := ops.Delete(&f, l)
+			if err != nil {
+				l.Sugar().Errorf(err.Error())
+				ch <- err
+			}
+		}(f)
+	}
+	for er := range ch {
+		errorlist = append(errorlist, er)
+	}
+	ids := make([]int64, 0)
+	for _, s := range *files {
+		ids = append(ids, s.Id)
+	}
+	note, err := dal.DeleteFiles(ids, db, l)
+	if err != nil {
+		l.Sugar().Errorf(err.Error())
+		return "failed to delete file record in db", err
+	}
+
+	wg.Wait()
+	errs := errors.Join(errorlist...)
+	if errs != nil {
+		l.Sugar().Errorf(errs.Error())
+		return "failed to delete files", errs
 	}
 
 	l.Info(fmt.Sprintf("delete file processing time: %v", time.Since(start)))
