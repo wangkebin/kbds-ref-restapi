@@ -137,10 +137,14 @@ func DeleteFiles(ctx context.Context, files *[]models.File, l *log.Logger) (stri
 			if err != nil {
 				l.Sugar().Errorf(err.Error())
 				ch <- err
+			} else {
+				ch <- nil
 			}
 		}(f)
 	}
-	for er := range ch {
+
+	for i := 0; i< len(*files); i++ {
+		er := <- ch
 		errorlist = append(errorlist, er)
 	}
 	ids := make([]int64, 0)
@@ -154,6 +158,7 @@ func DeleteFiles(ctx context.Context, files *[]models.File, l *log.Logger) (stri
 	}
 
 	wg.Wait()
+	
 	errs := errors.Join(errorlist...)
 	if errs != nil {
 		l.Sugar().Errorf(errs.Error())
