@@ -153,7 +153,7 @@ func init() {
           "200": {
             "description": "Successfully deleted the list of fileinfo resources",
             "schema": {
-              "type": "integer"
+              "type": "string"
             }
           },
           "default": {
@@ -421,7 +421,7 @@ func init() {
           "200": {
             "description": "Successfully deleted the list of fileinfo resources",
             "schema": {
-              "type": "integer"
+              "type": "string"
             }
           },
           "default": {

@@ -101,9 +101,9 @@ func configureAPI(api *operations.KbdsRefRestapiAPI) http.Handler {
 		note, err := controller.DeleteFiles(context.Background(), &finfos, l)
 		if err != nil {
 			msg := err.Error()
-			return operations.NewDeleteDefault(500).WithPayload(&genmodels.Error{Message: &msg})
+			return operations.NewDeletefilesDefault(500).WithPayload(&genmodels.Error{Message: &msg})
 		}
-		return operations.NewDeleteOK().WithPayload(note)
+		return operations.NewDeletefilesOK().WithPayload(note)
 	})
 	api.DuplicatesHandler = operations.DuplicatesHandlerFunc(func(params operations.DuplicatesParams) middleware.Responder {
 		var finfos models.Files

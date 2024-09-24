@@ -56,7 +56,7 @@ paths:
         200:
           description: Successfully deleted the list of fileinfo resources
           schema:
-            type: integer
+            type: string
         default:
           description: generic error response
           schema:

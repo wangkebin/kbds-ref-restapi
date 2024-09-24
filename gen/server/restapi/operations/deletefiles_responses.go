@@ -26,7 +26,7 @@ type DeletefilesOK struct {
 	/*
 	  In: Body
 	*/
-	Payload int64 `json:"body,omitempty"`
+	Payload string `json:"body,omitempty"`
 }
 
 // NewDeletefilesOK creates DeletefilesOK with default headers values
@@ -36,13 +36,13 @@ func NewDeletefilesOK() *DeletefilesOK {
 }
 
 // WithPayload adds the payload to the deletefiles o k response
-func (o *DeletefilesOK) WithPayload(payload int64) *DeletefilesOK {
+func (o *DeletefilesOK) WithPayload(payload string) *DeletefilesOK {
 	o.Payload = payload
 	return o
 }
 
 // SetPayload sets the payload to the deletefiles o k response
-func (o *DeletefilesOK) SetPayload(payload int64) {
+func (o *DeletefilesOK) SetPayload(payload string) {
 	o.Payload = payload
 }
 
