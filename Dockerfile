@@ -1,6 +1,3 @@
-# Swagger build stage should happen on go-swagger image
-# Always explicitly state the full semver to avoid inconsistent builds and supply-chain attacks
-# TODO: Move this image to our private ECR repo for increased supply-chain attack protection
 FROM quay.io/goswagger/swagger:v0.31.0 as swagger-build
 
 # Switch to a clean build directory
@@ -14,8 +11,6 @@ COPY go.sum go.sum
 RUN mkdir -p gen/server && swagger generate server --target gen/server --name KbdsRefRestapi --spec swagger.yml --principal interface{}
 
 # Build stage should happen on the golang alpine image
-# Always explicitly state the full semver to avoid inconsistent builds and supply-chain attacks
-# TODO: Move this image to our private ECR repo for increased supply-chain attack protection
 FROM golang:1.21.11-alpine3.20 as build
 
 
@@ -49,10 +44,6 @@ RUN mkdir /project
 RUN go build -o /project/kbds-ref-restapi "./gen/server/cmd/..."
 RUN chmod +x /project/kbds-ref-restapi
 
-# The dev run stage image base is alpine with root permissions to allow for shelling
-# into the container and running arbitrary commands for debugging
-# Again, always specify the full semver
-# TODO: Move this image to our private ECR repo for increased supply-chain attack protection
 FROM alpine:3.20.0
 
 # Binary will be run out of /project
